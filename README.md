@@ -1,5 +1,4 @@
 # Spring Boot + AWS Lambda
-___
 Spring Boot 3 Application + AWS Lambda Demo
 
 ## References
@@ -11,8 +10,6 @@ Spring Boot 3 Application + AWS Lambda Demo
 # Getting Started
 
 ## Pre-requisites
-___
-
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 * [SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
 * [Gradle](https://gradle.org/)
@@ -20,10 +17,8 @@ ___
 <br>
 
 ## 1. build.gradle 설정
-___
 
 ### 의존성 추가
-
 ```
 dependencies {
     implementation ('org.springframework.boot:spring-boot-starter-web') {
@@ -69,11 +64,8 @@ build.dependsOn buildZip
 <br>
 
 ## 2. template.yml 생성
-___
-
 AWS SAM CLI을 통해 빌드 및 배포를 위해 `template.yml`을 작성해야 한다.
 * 참고: [SAM template](https://github.com/aws/serverless-application-model)
-
 
 ```yaml
 AWSTemplateFormatVersion: '2010-09-09'
@@ -118,7 +110,6 @@ Outputs:
 <br>
 
 ## 3. 빌드 및 배포
-___
 
 ### 빌드
 ```
