@@ -63,7 +63,46 @@ build.dependsOn buildZip
 
 <br>
 
-## 2. template.yml 생성
+
+## 2. 코드 작성
+
+### RequestStreamHandler 구현체
+```java
+public class StreamLambdaHandler implements RequestStreamHandler {
+
+    private static SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
+
+    static {
+        try {
+            handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(SpringLambdaApplication.class);
+        } catch (ContainerInitializationException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
+        handler.proxyStream(input, output, context);
+    }
+}
+```
+
+### Controller
+```java
+@RestController
+public class ApiController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello! This is Spring Boot + AWS Lambda demo project.";
+    }
+}
+```
+
+<br>
+
+## 3. template.yml 생성
 AWS SAM CLI을 통해 빌드 및 배포를 위해 `template.yml`을 작성해야 한다.
 * 참고: [SAM template](https://github.com/aws/serverless-application-model)
 
@@ -109,7 +148,7 @@ Outputs:
 
 <br>
 
-## 3. 빌드 및 배포
+## 4. 빌드 및 배포
 
 ### 빌드
 ```
